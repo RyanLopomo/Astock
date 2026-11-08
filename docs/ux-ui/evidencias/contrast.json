@@ -1,0 +1,99 @@
+{
+  "date": "2026-11-08",
+  "method": "Luminância relativa sRGB dos valores hex dos tokens; elementos opacos e estados ativos. Não inclui toda combinação, texto sobre imagens, controles nativos ou certificação WCAG.",
+  "results": [
+    {
+      "name": "Texto principal",
+      "foreground": "#172e28",
+      "background": "#ffffff",
+      "ratio": 14.4,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "name": "Texto secundário",
+      "foreground": "#52635b",
+      "background": "#ffffff",
+      "ratio": 6.37,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "name": "Cabeçalho de tabela",
+      "foreground": "#52635b",
+      "background": "#f1f5f2",
+      "ratio": 5.79,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "name": "Ação principal",
+      "foreground": "#ffffff",
+      "background": "#1b5342",
+      "ratio": 8.89,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "name": "Navegação",
+      "foreground": "#cddbd4",
+      "background": "#102f28",
+      "ratio": 10.06,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "name": "Erro",
+      "foreground": "#991b1b",
+      "background": "#fef2f2",
+      "ratio": 7.6,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "name": "Aviso",
+      "foreground": "#713f12",
+      "background": "#fffbeb",
+      "ratio": 8.36,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "name": "Sucesso",
+      "foreground": "#245f3e",
+      "background": "#eaf4ed",
+      "ratio": 6.71,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "name": "Limite de controle",
+      "foreground": "#617169",
+      "background": "#ffffff",
+      "ratio": 5.15,
+      "minimum": 3,
+      "passed": true
+    },
+    {
+      "name": "Foco em painel",
+      "foreground": "#0d9488",
+      "background": "#ffffff",
+      "ratio": 3.74,
+      "minimum": 3,
+      "passed": true
+    },
+    {
+      "name": "Foco em navegação",
+      "foreground": "#0d9488",
+      "background": "#102f28",
+      "ratio": 3.84,
+      "minimum": 3,
+      "passed": true
+    }
+  ],
+  "beforeControlBorder": {
+    "foreground": "#94a3b8",
+    "background": "#ffffff",
+    "ratio": 2.56
+  }
+}

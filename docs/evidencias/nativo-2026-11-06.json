@@ -1,0 +1,58 @@
+{
+  "date": "2026-11-06",
+  "timezone": "America/Sao_Paulo",
+  "scope": "Fase 0, abertura nativa",
+  "environment": {
+    "rustc": "1.99.1 (58cf8f9c3 2026-10-13)",
+    "cargo": "1.99.1 (5f94df478 2026-08-27)",
+    "visualStudioBuildTools": "17.14.44",
+    "visualStudioInstallationVersion": "17.14.37827.9",
+    "windowsSdk": "10.0.26100.0",
+    "isComplete": true,
+    "isLaunchable": true,
+    "isRebootRequired": false
+  },
+  "checks": [
+    {
+      "command": "cargo test -p axis-estoque-core --locked",
+      "exitCode": 0,
+      "passed": 5,
+      "failed": 0,
+      "output": "\nrunning 5 tests\ntest tests::persists_text_and_configures_durability_on_every_open ... ok\ntest tests::rolls_back_insert_if_a_trigger_fails_after_writing ... ok\ntest tests::validates_input_and_uses_bound_parameters ... ok\ntest tests::refuses_foreign_and_newer_databases_without_changing_journal ... ok\ntest tests::recent_entries_are_limited_and_allow_repeated_scans ... ok\n\ntest result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 4.50s\n\n   Doc-tests axis_estoque_core\n\nrunning 0 tests\n\ntest result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\n"
+    },
+    {
+      "command": "cargo fmt --all --check",
+      "exitCode": 0
+    },
+    {
+      "command": "cargo clippy --workspace --all-targets --locked -- -D warnings",
+      "exitCode": 0,
+      "result": "Finished dev profile; zero warnings"
+    },
+    {
+      "command": "npm.cmd run desktop:dev -- --no-watch --config C:\\Users\\R\\Documents\\PDV\\.cache\\tauri-reuse-vite.json",
+      "compiled": true,
+      "processRunning": true,
+      "windowTitle": "AXIS ESTOQUE — Validação técnica",
+      "note": "Reutiliza Vite local previamente ativo; o processo continua aberto."
+    }
+  ],
+  "observedNativeInterface": {
+    "sqliteVersion": "3.54.1",
+    "journalMode": "WAL",
+    "synchronous": "FULL",
+    "integrity": "OK · quick_check",
+    "initialReadings": 0,
+    "databaseExists": true,
+    "databaseLocation": "%LOCALAPPDATA%\\AxisEstoque\\phase0\\prova.db",
+    "screenshot": "tauri-native-2026-11-06.png"
+  },
+  "pending": [
+    "Leitor USB físico e ABNT2",
+    "Reinício pela interface",
+    "Release offline",
+    "Interrupção abrupta",
+    "Instalação Windows limpa"
+  ],
+  "nextPhaseStarted": false
+}

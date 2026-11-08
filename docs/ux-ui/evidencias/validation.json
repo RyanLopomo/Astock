@@ -1,0 +1,60 @@
+{
+  "date": "2026-11-08",
+  "interface": {
+    "before": 22,
+    "after": 51,
+    "added": 29,
+    "passed": true
+  },
+  "core": {
+    "unit": 5,
+    "integration": 27,
+    "total": 32,
+    "passed": true,
+    "temporarySqlite": true
+  },
+  "typecheck": true,
+  "eslintWarnings": 0,
+  "rustFmt": true,
+  "webBuild": true,
+  "desktopBuild": {
+    "passed": true,
+    "profile": "release",
+    "offline": true,
+    "executed": false,
+    "destination": "target/release/astock-ux-v1.exe",
+    "bytes": 11328000,
+    "sha256": "957772a08a12ed8ccf38fad44df2a30e8d9cb96a7f06b9c2b091389c51cb8c55",
+    "embeddedAssets": [
+      "index-CGrUwFR1.js",
+      "index-JEZ_0sYh.css"
+    ],
+    "embeddedAssetNamesVerified": true,
+    "syntheticBrowserFixtureInBundle": false
+  },
+  "browser": {
+    "engine": "Chrome headless via Playwright local",
+    "pageViewportCases": 30,
+    "errors": [],
+    "syntheticClient": true,
+    "databaseAccessed": false,
+    "search": {
+      "skus": 1000,
+      "warmup": 5,
+      "samples": 30,
+      "before": {
+        "p50": 33.40000009536743,
+        "p95": 33.60000038146973
+      },
+      "after": {
+        "p50": 33.5,
+        "p95": 33.60000038146973
+      },
+      "performanceImprovementClaimed": false
+    }
+  },
+  "nativeApplicationLaunched": false,
+  "primaryDatabaseAccessed": false,
+  "physicalHidTested": false,
+  "screenReaderTested": false
+}

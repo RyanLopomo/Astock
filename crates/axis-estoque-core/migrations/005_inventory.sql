@@ -1,0 +1,21 @@
+CREATE TABLE inventories(id INTEGER PRIMARY KEY, name TEXT NOT NULL, status TEXT NOT NULL DEFAULT 'active' CHECK(status IN('active','closing','finalized','canceled')), scope TEXT NOT NULL CHECK(scope IN('full','partial')), revision INTEGER NOT NULL DEFAULT 0, created_at TEXT NOT NULL DEFAULT(strftime('%Y-%m-%dT%H:%M:%fZ','now')), closed_at TEXT, uncounted_decision TEXT CHECK(uncounted_decision IN('skip','zero'))) STRICT;
+CREATE UNIQUE INDEX idx_one_active_inventory ON inventories((1)) WHERE status IN('active','closing');
+CREATE TABLE inventory_skus(inventory_id INTEGER NOT NULL REFERENCES inventories(id), sku_id INTEGER NOT NULL REFERENCES skus(id), PRIMARY KEY(inventory_id,sku_id)) STRICT;
+CREATE INDEX idx_inventory_sku ON inventory_skus(sku_id,inventory_id);
+CREATE TABLE inventory_lines(id INTEGER PRIMARY KEY, inventory_id INTEGER NOT NULL REFERENCES inventories(id), sku_id INTEGER NOT NULL REFERENCES skus(id), lot_id INTEGER REFERENCES lots(id), reference INTEGER NOT NULL CHECK(reference>=0), counted INTEGER CHECK(counted BETWEEN 0 AND 1000000000)) STRICT;
+CREATE UNIQUE INDEX idx_inventory_pool ON inventory_lines(inventory_id,sku_id,coalesce(lot_id,-1));
+CREATE TABLE inventory_events(id INTEGER PRIMARY KEY, inventory_id INTEGER NOT NULL REFERENCES inventories(id), request_key TEXT NOT NULL UNIQUE, code TEXT NOT NULL, sku_id INTEGER REFERENCES skus(id), lot_id INTEGER REFERENCES lots(id), quantity INTEGER NOT NULL, mode TEXT NOT NULL, outcome TEXT NOT NULL, created_at TEXT NOT NULL DEFAULT(strftime('%Y-%m-%dT%H:%M:%fZ','now'))) STRICT;
+CREATE INDEX idx_inventory_events ON inventory_events(inventory_id,id);
+ALTER TABLE inventory_events ADD COLUMN previous_count INTEGER;
+ALTER TABLE inventory_events ADD COLUMN new_count INTEGER;
+CREATE TRIGGER count_event_update BEFORE UPDATE ON inventory_events BEGIN SELECT RAISE(ABORT,'AXIS:Histórico de contagem imutável.'); END;
+CREATE TRIGGER count_event_delete BEFORE DELETE ON inventory_events BEGIN SELECT RAISE(ABORT,'AXIS:Histórico de contagem imutável.'); END;
+CREATE TRIGGER inventory_final BEFORE UPDATE ON inventories WHEN OLD.status IN('finalized','canceled') BEGIN SELECT RAISE(ABORT,'AXIS:Inventário já encerrado.'); END;
+CREATE TRIGGER inventory_line_final BEFORE UPDATE ON inventory_lines WHEN (SELECT status FROM inventories WHERE id=OLD.inventory_id)<>'active' BEGIN SELECT RAISE(ABORT,'AXIS:Contagem encerrada; não pode ser editada.'); END;
+CREATE TRIGGER inventory_line_delete BEFORE DELETE ON inventory_lines BEGIN SELECT RAISE(ABORT,'AXIS:Contagens persistidas não podem ser excluídas.'); END;
+CREATE TRIGGER stock_guards BEFORE INSERT ON stock_movements BEGIN
+ SELECT CASE WHEN NEW.lot_id IS NOT NULL AND NOT EXISTS(SELECT 1 FROM lots WHERE id=NEW.lot_id AND sku_id=NEW.sku_id) THEN RAISE(ABORT,'AXIS:O lote não pertence ao SKU.') END;
+ SELECT CASE WHEN coalesce((SELECT sum(quantity) FROM stock_movements WHERE sku_id=NEW.sku_id),0)+NEW.quantity NOT BETWEEN 0 AND 1000000000 THEN RAISE(ABORT,'AXIS:Saldo total insuficiente ou acima do limite.') END;
+ SELECT CASE WHEN coalesce((SELECT sum(quantity) FROM stock_movements WHERE sku_id=NEW.sku_id AND lot_id IS NEW.lot_id),0)+NEW.quantity NOT BETWEEN 0 AND 1000000000 THEN RAISE(ABORT,'AXIS:Saldo do lote insuficiente ou acima do limite.') END;
+ SELECT CASE WHEN EXISTS(SELECT 1 FROM inventory_skus s JOIN inventories i ON i.id=s.inventory_id WHERE s.sku_id=NEW.sku_id AND i.status IN('active','closing') AND NOT(i.status='closing' AND NEW.kind='inventory' AND NEW.origin_type='inventory' AND NEW.origin_id=CAST(i.id AS TEXT))) THEN RAISE(ABORT,'AXIS:SKU bloqueado por inventário em andamento.') END;
+END;

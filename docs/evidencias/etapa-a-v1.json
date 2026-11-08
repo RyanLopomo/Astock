@@ -1,0 +1,15 @@
+{
+  "date": "2026-11-07",
+  "stage": "A",
+  "initialState": "Somente Fase 0; esquema 1, uma leitura existente preservada para comparação",
+  "checks": [
+    {"command": "cargo test -p axis-estoque-core --offline", "passed": 27, "failed": 0, "note": "5 testes legados e 22 de integração, incluindo 1000 SKUs/5000 movimentos"},
+    {"command": "cargo test -p axis-estoque-core --offline --test integration a_", "passed": 8, "failed": 0, "note": "Repetição da base após refatoração tipada das movimentações"},
+    {"command": "cargo clippy -p axis-estoque-core --all-targets --offline -- -D warnings", "exitCode": 0},
+    {"command": "npm.cmd run typecheck", "exitCode": 0},
+    {"command": "npm.cmd run lint", "exitCode": 0},
+    {"command": "npm.cmd test", "passed": 6, "failed": 0}
+  ],
+  "productionDatabaseMigrated": false,
+  "note": "Esquema integrado 2–5 e núcleo comum preparados; telas e ligação nativa das novas versões ainda em implementação. O banco real não foi alterado nesta etapa."
+}

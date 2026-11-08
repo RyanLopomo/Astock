@@ -1,0 +1,21 @@
+[package]
+name = "axis-estoque-desktop"
+default-run = "astock"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[[bin]]
+name = "astock"
+path = "src/main.rs"
+
+[build-dependencies]
+tauri-build = { version = "=2.7.4", features = [] }
+
+[dependencies]
+tauri = { version = "=2.12.5", features = [] }
+serde.workspace = true
+axis-estoque-core = { path = "../crates/axis-estoque-core" }
+
+[features]
+custom-protocol = ["tauri/custom-protocol"]

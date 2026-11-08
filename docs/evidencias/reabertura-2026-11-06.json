@@ -1,0 +1,28 @@
+{
+  "date": "2026-11-06",
+  "timezone": "America/Sao_Paulo",
+  "action": "Reabertura solicitada pelo usuario e comparacao de persistencia",
+  "application": "AXIS ESTOQUE — Validação técnica",
+  "before": {
+    "activeAppProcess": false,
+    "entries": 1,
+    "integrity": "ok",
+    "sqliteVersion": "3.54.1"
+  },
+  "after": {
+    "activeAppProcess": true,
+    "windowVisible": true,
+    "entries": 1,
+    "integrity": "ok",
+    "sqliteVersion": "3.54.1"
+  },
+  "comparison": {
+    "scope": "Todos os registros de probe_entries ordenados por id: id, code, note, created_at",
+    "identical": true,
+    "sha256Before": "DD602690AD99F9EFE888C939D546B96875A0B915782C046910DE6473608C7D21",
+    "sha256After": "DD602690AD99F9EFE888C939D546B96875A0B915782C046910DE6473608C7D21"
+  },
+  "method": "Ferramenta Rust temporaria com rusqlite bundled, SQLITE_OPEN_READ_ONLY, query_only e transacao de leitura. Sem copia do banco aberto com WAL.",
+  "dataChangedByInspection": false,
+  "note": "Fase 0 armazena leituras de teste, sem cadastro de produtos comerciais. Nenhum registro foi criado para esta verificacao."
+}

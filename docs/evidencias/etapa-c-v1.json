@@ -1,0 +1,13 @@
+{
+  "date": "2026-11-07",
+  "stage": "C",
+  "implemented": ["Lotes e distribuicao no recebimento", "FEFO e regras de vencidos/sem validade", "alertas locais configuraveis", "reclassificacao de saldo sem lote"],
+  "checks": [
+    {"command": "cargo test -p axis-estoque-core --offline --test integration -- --skip volume_1000", "integrationPassed": 26, "failed": 0, "note": "Regressao anterior ao checkpoint; inclui os quatro testes c_* e migracao de saldo sem lote"},
+    {"command": "npm.cmd test", "passed": 22, "failed": 0, "note": "Sem validade ficticia e interface integrada"},
+    {"command": "node scripts/native-integration.mjs", "passed": true, "note": "Entrada 60, lote 60, baixa FEFO 10 e saldo de lote 50 pelo IPC real"},
+    {"command": "node scripts/native-integration.mjs --capture", "passed": true, "note": "Tela nativa com lote e data conferida visualmente"}
+  ],
+  "checkpoint": "docs/checkpoints/etapa-c-v1.sha256",
+  "note": "Manifesto de arquivos, sem Git; snapshot inclui nucleo compartilhado e telas integradas. Homologacao operacional pendente."
+}

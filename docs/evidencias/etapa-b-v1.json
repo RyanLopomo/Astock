@@ -1,0 +1,13 @@
+{
+  "date": "2026-11-07",
+  "stage": "B",
+  "implemented": ["XML local seguro NF-e 4.00", "associacao persistente e ambiguidades", "conversao e decimal exato", "rascunho e confirmacao atomica idempotente"],
+  "checks": [
+    {"command": "cargo test -p axis-estoque-core --offline --test integration -- --skip volume_1000", "integrationPassed": 26, "failed": 0, "note": "Regressao anterior ao checkpoint; inclui todos os testes b_* e rollback de recebimento a_*"},
+    {"command": "npm.cmd test", "passed": 22, "failed": 0, "note": "Interface integrada; inclui importacao/limite, desconhecido e confirmacao explicita"},
+    {"command": "node scripts/native-integration.mjs", "passed": true, "note": "XML real no Tauri/SQLite isolado, fornecedor, conversao, duplicidade e entrada"},
+    {"command": "node scripts/native-integration.mjs --resume", "passed": true, "note": "Associacao e fator preservados apos reinicio real"}
+  ],
+  "checkpoint": "docs/checkpoints/etapa-b-v1.sha256",
+  "note": "Manifesto de arquivos, sem Git; snapshot inclui o nucleo integrado compartilhado com C/D. Testes fisicos pendentes."
+}

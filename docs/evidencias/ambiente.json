@@ -1,0 +1,47 @@
+{
+  "date": "2026-11-05",
+  "timezone": "America/Sao_Paulo",
+  "windowsRegistry": {
+    "productName": "Windows 10 Pro",
+    "displayVersion": "22H2",
+    "currentBuild": "19045",
+    "ubr": 6466
+  },
+  "os": "Microsoft Windows 10.0.19045 ",
+  "architecture": "X64",
+  "tools": {
+    "node": {
+      "exitCode": 0,
+      "path": "C:\\Program Files\\nodejs\\node.exe",
+      "version": "v24.16.0"
+    },
+    "npm.cmd": {
+      "exitCode": 0,
+      "path": "C:\\Program Files\\nodejs\\npm.cmd",
+      "version": "11.13.0"
+    },
+    "rustc": {
+      "found": false
+    },
+    "cargo": {
+      "found": false
+    },
+    "rustup": {
+      "found": false
+    },
+    "git": {
+      "exitCode": 0,
+      "path": "C:\\Program Files\\Git\\cmd\\git.exe",
+      "version": "git version 2.53.0.windows.2"
+    }
+  },
+  "visualStudio": [],
+  "windowsSdk": [],
+  "webView2": [
+    {
+      "name": "Microsoft Edge WebView2 Runtime",
+      "pv": "156.0.4314.58"
+    }
+  ],
+  "scanner": "Pendente: testar leitor fisico na interface; teclado HID generico nao identifica um scanner com seguranca."
+}

@@ -1,0 +1,82 @@
+{
+  "phase": "before",
+  "date": "2026-11-08",
+  "browser": "157.0.8103.38",
+  "node": "v24.16.0",
+  "syntheticClient": true,
+  "databaseAccessed": false,
+  "nativeTauriTested": false,
+  "layouts": [
+    {
+      "page": "Produtos",
+      "width": 1200,
+      "documentWidth": 1200,
+      "overflow": false,
+      "tableScrollContainers": 0
+    },
+    {
+      "page": "Produtos",
+      "width": 760,
+      "documentWidth": 760,
+      "overflow": false,
+      "tableScrollContainers": 0
+    },
+    {
+      "page": "Produtos",
+      "width": 320,
+      "documentWidth": 360,
+      "overflow": true,
+      "tableScrollContainers": 1
+    }
+  ],
+  "search": {
+    "skuCount": 1000,
+    "warmup": 5,
+    "repetitions": 30,
+    "unit": "ms",
+    "measured": "Input event to matching row plus two animation frames; development React in headless Chrome, no database or IPC",
+    "p50": 33.40000009536743,
+    "p95": 33.60000038146973,
+    "min": 33.200000286102295,
+    "max": 33.700000286102295,
+    "samples": [
+      33.59999990463257,
+      33.40000009536743,
+      33.200000286102295,
+      33.59999990463257,
+      33.200000286102295,
+      33.39999961853027,
+      33.60000038146973,
+      33.299999713897705,
+      33.700000286102295,
+      33.299999713897705,
+      33.5,
+      33.5,
+      33.40000009536743,
+      33.5,
+      33.30000019073486,
+      33.39999961853027,
+      33.40000009536743,
+      33.5,
+      33.40000009536743,
+      33.5,
+      33.40000009536743,
+      33.5,
+      33.5,
+      33.40000009536743,
+      33.5,
+      33.40000009536743,
+      33.5,
+      33.39999961853027,
+      33.40000009536743,
+      33.5
+    ]
+  },
+  "observations": {
+    "filterPreserved": false,
+    "inventoryInitiallyFocused": false,
+    "modalFocus": "Nome do produto"
+  },
+  "errors": [],
+  "baselineOnly": true
+}

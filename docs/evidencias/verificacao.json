@@ -1,0 +1,66 @@
+{
+  "date": "2026-11-05",
+  "timezone": "America/Sao_Paulo",
+  "scope": "Fase 0 somente",
+  "notes": [
+    "Testes React usam cliente injetado e nao executam SQLite/Rust/Tauri.",
+    "Comandos nativos nao iniciaram compilacao nem testes porque Cargo esta ausente.",
+    "tauri info retorna 0 mesmo apontando pre-requisitos ausentes."
+  ],
+  "checks": [
+    {
+      "command": "npm.cmd run typecheck",
+      "exitCode": 0,
+      "classification": "passed",
+      "output": "\n> axis-estoque@0.0.1 typecheck\n> tsc --noEmit\n\n"
+    },
+    {
+      "command": "npm.cmd run lint",
+      "exitCode": 0,
+      "classification": "passed",
+      "output": "\n> axis-estoque@0.0.1 lint\n> eslint . --max-warnings 0\n\n"
+    },
+    {
+      "command": "npm.cmd test",
+      "exitCode": 0,
+      "classification": "passed",
+      "output": "\n> axis-estoque@0.0.1 test\n> vitest run\n\n\n RUN  v5.1.0 C:/Users/R/Documents/PDV\n\n\n Test Files  1 passed (1)\n      Tests  6 passed (6)\n   Start at  22:28:57\n   Duration  5.54s (environment 60%, tests 18%, setup 13%, import 6%, transform 3%, worker 1%)\n\n"
+    },
+    {
+      "command": "npm.cmd run build",
+      "exitCode": 0,
+      "classification": "passed",
+      "output": "\n> axis-estoque@0.0.1 build\n> tsc --noEmit && vite build\n\nvite v8.3.6 building client environment for production...\ntransforming...\n✓ 19 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                   0.47 kB │ gzip:  0.32 kB\ndist/assets/index-CiWWUPwm.css   12.29 kB │ gzip:  3.66 kB\ndist/assets/index-Du7FCQY_.js   229.40 kB │ gzip: 72.04 kB\n\n✓ built in 387ms\n"
+    },
+    {
+      "command": "npm.cmd audit --json",
+      "exitCode": 0,
+      "classification": "passed",
+      "output": "{\n  \"auditReportVersion\": 2,\n  \"vulnerabilities\": {},\n  \"metadata\": {\n    \"vulnerabilities\": {\n      \"info\": 0,\n      \"low\": 0,\n      \"moderate\": 0,\n      \"high\": 0,\n      \"critical\": 0,\n      \"total\": 0\n    },\n    \"dependencies\": {\n      \"prod\": 5,\n      \"dev\": 285,\n      \"optional\": 56,\n      \"peer\": 8,\n      \"peerOptional\": 0,\n      \"total\": 289\n    }\n  }\n}\n"
+    },
+    {
+      "command": "npm.cmd run tauri -- info",
+      "exitCode": 0,
+      "classification": "diagnostic_with_missing_prerequisites",
+      "output": "\n> axis-estoque@0.0.1 tauri\n> tauri info\n\n\n[✘] Environment\n    - OS: Windows 10.0.19045 x86_64 (X64)\n    ✔ WebView2: 156.0.4314.58\r\n    ✘ Couldn't detect any Visual Studio or VS Build Tools instance with MSVC and SDK components. Download from https://aka.ms/vs/17/release/vs_BuildTools.exe\n    ✘ rustc: not installed!\n      Maybe you don't have rust installed! Visit https://rustup.rs/\n    ✘ Cargo: not installed!\n      Maybe you don't have rust installed! Visit https://rustup.rs/\n    ⚠ rustup: not installed!\n      If you have rust installed some other way, we recommend uninstalling it\n      then use rustup instead. Visit https://rustup.rs/\n    ⚠ Rust toolchain: couldn't be detected!\n      Maybe you don't have rustup installed? if so, Visit https://rustup.rs/\n    - node: 24.16.0\n    - npm: 11.13.0\n\n[-] Packages\n    - tauri 🦀: No version detected\n    - tauri-build 🦀: No version detected\n    - wry 🦀: No version detected\n    - tao 🦀: No version detected\n    - @tauri-apps/api  ⱼₛ: 2.12.4\n    - @tauri-apps/cli  ⱼₛ: 2.12.4\n\n[-] Plugins\n\n[-] App\n    - build-type: build\n    - CSP: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src ipc: http://ipc.localhost; object-src 'none'; frame-src 'none'; base-uri 'self'\n    - frontendDist: ../dist\n    - devUrl: http://127.0.0.1:1420/\n    - framework: React\n    - bundler: Vite\n"
+    },
+    {
+      "command": "npm.cmd run desktop:build",
+      "exitCode": 1,
+      "classification": "blocked_missing_cargo",
+      "output": "\n> axis-estoque@0.0.1 desktop:build\n> tauri build --no-bundle\n\nfailed to run 'cargo metadata' command to get workspace directory: failed to run command cargo metadata --no-deps --format-version 1: program not found\n       Error failed to run 'cargo metadata' command to get workspace directory: failed to run command cargo metadata --no-deps --format-version 1: program not found\n"
+    },
+    {
+      "command": "npm.cmd run test:core",
+      "exitCode": 1,
+      "classification": "blocked_missing_cargo",
+      "output": "\n> axis-estoque@0.0.1 test:core\n> cargo test -p axis-estoque-core\n\n'cargo' não é reconhecido como um comando interno\r\nou externo, um programa operável ou um arquivo em lotes.\r\n"
+    },
+    {
+      "command": "npm.cmd run check:rust",
+      "exitCode": 1,
+      "classification": "blocked_missing_cargo",
+      "output": "\n> axis-estoque@0.0.1 check:rust\n> cargo fmt --all --check && cargo clippy --workspace --all-targets -- -D warnings\n\n'cargo' não é reconhecido como um comando interno\r\nou externo, um programa operável ou um arquivo em lotes.\r\n"
+    }
+  ]
+}

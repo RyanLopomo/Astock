@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<n:NFe xmlns:n="http://www.portalfiscal.inf.br/nfe">
+ <n:infNFe versao="4.00" Id="NFe35261112345678000195550010000001231123456788">
+  <n:ide><n:cUF>35</n:cUF><n:mod>55</n:mod><n:serie>1</n:serie><n:nNF>123</n:nNF><n:dhEmi>2026-11-07T10:00:00-03:00</n:dhEmi></n:ide>
+  <n:emit><n:CNPJ>12345678000195</n:CNPJ><n:xNome>FORNECEDOR SINTETICO - SEM VALOR FISCAL</n:xNome></n:emit>
+  <n:det nItem="1"><n:prod><n:cProd>CX-AGUA</n:cProd><n:cEAN>SEM GTIN</n:cEAN><n:xProd>AGUA DE TESTE 500ML - SEM VALOR FISCAL</n:xProd><n:uCom>CX</n:uCom><n:qCom>5.0000</n:qCom><n:vUnCom>120.0000000000</n:vUnCom><n:vProd>600.00</n:vProd><n:cEANTrib>7890000000017</n:cEANTrib><n:uTrib>UN</n:uTrib><n:qTrib>60.0000</n:qTrib><n:rastro><n:nLote>TESTE-LOTE-01</n:nLote><n:qLote>5.000</n:qLote><n:dFab>2026-11-01</n:dFab><n:dVal>2026-12-15</n:dVal></n:rastro></n:prod></n:det>
+ </n:infNFe>
+</n:NFe>

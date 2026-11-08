@@ -1,0 +1,27 @@
+{
+  "date": "2026-11-07",
+  "stage": "D",
+  "passed": true,
+  "rustTests": 32,
+  "frontendTests": 22,
+  "scale": {
+    "skus": 1000,
+    "movements": 5000,
+    "passed": true
+  },
+  "nativeFlowEvidence": "docs/evidencias/native-v1-integrada.json",
+  "releaseEvidence": "docs/evidencias/release-v1-integrada.json",
+  "finalReleaseBuild": true,
+  "productionMigration": {
+    "from": 1,
+    "to": 5,
+    "backupVerified": true,
+    "legacySnapshotSha256": "dd602690ad99f9efe888c939d546b96875a0b915782c046910de6473608c7d21",
+    "legacyRows": 1
+  },
+  "checkpoints": [
+    "etapa-d-v1",
+    "v1-integrada"
+  ],
+  "manualHardwareValidationPending": true
+}

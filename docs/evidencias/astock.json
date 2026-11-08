@@ -1,0 +1,18 @@
+{
+    "passed":  true,
+    "date":  "2026-11-07",
+    "name":  "Astock",
+    "brand":  "Astock",
+    "binary":  "target/release/astock.exe",
+    "sha256":  "2dcf8643b77d2d7a246b9c1dc69a74d8f4819b3c827d713f95d8090bd7a1c1f6",
+    "databasePath":  "C:\\Users\\R\\AppData\\Local\\AxisEstoque\\phase0\\prova.db",
+    "schemaVersion":  5,
+    "integrity":  "ok",
+    "legacyRowsIdentical":  true,
+    "skuCount":  0,
+    "frontendTestsPassed":  22,
+    "windowTitle":  "Astock",
+    "windowsProductName":  "Astock",
+    "normalReopenVerified":  true,
+    "legacySnapshotSha256":  "dd602690ad99f9efe888c939d546b96875a0b915782c046910de6473608c7d21"
+}

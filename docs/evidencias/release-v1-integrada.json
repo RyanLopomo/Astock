@@ -1,0 +1,96 @@
+{
+  "date": "2026-11-07",
+  "passed": true,
+  "version": "1.3.0",
+  "frontendUrl": "http://tauri.localhost/",
+  "bundledScripts": [
+    "http://tauri.localhost/assets/index-DYD2kBZV.js"
+  ],
+  "bundledAssetsMatch": true,
+  "devServerRunning": false,
+  "dataProfile": null,
+  "schemaVersion": 5,
+  "sqliteVersion": "3.54.1",
+  "integrity": "ok",
+  "journalMode": "wal",
+  "foreignKeys": true,
+  "synchronous": 2,
+  "legacyRowsBefore": 1,
+  "legacyRowsAfter": 1,
+  "legacyRowsIdentical": true,
+  "syntheticSkusInPrimary": 0,
+  "backupDirectory": "C:\\Users\\R\\AppData\\Local\\AxisEstoque\\phase0\\backups",
+  "preMigrationBackups": [
+    "antes-schema-1-1794083584471607900.db"
+  ],
+  "smallViewport": [
+    {
+      "page": "Dashboard",
+      "heading": "Visão geral",
+      "width": 760,
+      "contentWidth": 745
+    },
+    {
+      "page": "Produtos",
+      "heading": "Produtos",
+      "width": 760,
+      "contentWidth": 760
+    },
+    {
+      "page": "Recebimentos",
+      "heading": "Recebimentos",
+      "width": 760,
+      "contentWidth": 760
+    },
+    {
+      "page": "Importar XML",
+      "heading": "Importar XML",
+      "width": 760,
+      "contentWidth": 745
+    },
+    {
+      "page": "Lotes e Validades",
+      "heading": "Lotes e Validades",
+      "width": 760,
+      "contentWidth": 745
+    },
+    {
+      "page": "Inventário",
+      "heading": "Inventário",
+      "width": 760,
+      "contentWidth": 745
+    },
+    {
+      "page": "Movimentações",
+      "heading": "Movimentações",
+      "width": 760,
+      "contentWidth": 745
+    },
+    {
+      "page": "Fornecedores",
+      "heading": "Fornecedores",
+      "width": 760,
+      "contentWidth": 760
+    },
+    {
+      "page": "Relatórios",
+      "heading": "Relatórios",
+      "width": 760,
+      "contentWidth": 745
+    },
+    {
+      "page": "Configurações",
+      "heading": "Configurações",
+      "width": 760,
+      "contentWidth": 745
+    }
+  ],
+  "executableSha256": "ef7d0636045ac903c0da054bd664eb2ac6ee41b68fd4885cff6e9f3cf2d86afb",
+  "physicalNetworkDisconnected": false,
+  "cleanWindowsInstallationTested": false,
+  "legacySnapshotSha256": "dd602690ad99f9efe888c939d546b96875a0b915782c046910de6473608c7d21",
+  "preMigrationBackupMatchesOriginal": true,
+  "finalReopenPreservedLegacy": true,
+  "inspectionPortClosed": true,
+  "appLeftOpen": true
+}

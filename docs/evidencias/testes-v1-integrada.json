@@ -1,0 +1,58 @@
+{
+  "date": "2026-11-07",
+  "frontend": {
+    "command": "npm.cmd test",
+    "passed": 22,
+    "failed": 0
+  },
+  "typescript": {
+    "command": "npm.cmd run typecheck",
+    "exitCode": 0
+  },
+  "eslint": {
+    "command": "npm.cmd run lint",
+    "exitCode": 0
+  },
+  "frontendBuild": {
+    "command": "npm.cmd run build",
+    "exitCode": 0,
+    "javascriptBytes": 306560,
+    "note": "Tamanho aproximado informado pelo Vite"
+  },
+  "rustIntegrationFinal": {
+    "command": "target/debug/deps/integration-7d86252105d0e30b.exe --test-threads=2",
+    "passed": 27,
+    "failed": 0,
+    "includes": "1000 SKUs e 5000 movimentos pela API real, XML, lotes, inventario e migracoes"
+  },
+  "rustLegacyFinal": {
+    "command": "target/debug/deps/axis_estoque_core-d34620f21eaf624a.exe --test-threads=1",
+    "passed": 5,
+    "failed": 0
+  },
+  "rustFormat": {
+    "command": "cargo fmt --all --check",
+    "exitCode": 0
+  },
+  "clippy": {
+    "command": "cargo clippy --workspace --all-targets --offline -- -D warnings",
+    "exitCode": 0
+  },
+  "debugBuild": {
+    "command": "cargo build -p axis-estoque-desktop --offline",
+    "exitCode": 0
+  },
+  "initialReleaseBuild": {
+    "command": "npm.cmd run desktop:build",
+    "exitCode": 0,
+    "path": "target/release/axis-estoque-desktop.exe"
+  },
+  "note": "Os binarios de teste foram executados diretamente para evitar o bloqueio do target pelo build release concorrente. Mudancas posteriores no nucleo limitaram-se a comentarios de documentacao. Tempo de execucao concorrente nao e benchmark de producao. Teste fisico de scanner e Windows limpo permanecem pendentes.",
+  "finalReleaseBuild": {
+    "command": "npm.cmd run desktop:build",
+    "exitCode": 0,
+    "path": "target/release/axis-estoque-desktop.exe",
+    "bytes": 11324928,
+    "sha256": "ef7d0636045ac903c0da054bd664eb2ac6ee41b68fd4885cff6e9f3cf2d86afb"
+  }
+}

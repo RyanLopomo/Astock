@@ -1,0 +1,279 @@
+{
+  "phase": "after",
+  "date": "2026-11-08",
+  "browser": "157.0.8103.38",
+  "node": "v24.16.0",
+  "syntheticClient": true,
+  "databaseAccessed": false,
+  "nativeTauriTested": false,
+  "layouts": [
+    {
+      "page": "Produtos",
+      "width": 1200,
+      "documentWidth": 1200,
+      "overflow": false,
+      "tableScrollContainers": 0
+    },
+    {
+      "page": "Produtos",
+      "width": 760,
+      "documentWidth": 760,
+      "overflow": false,
+      "tableScrollContainers": 0
+    },
+    {
+      "page": "Produtos",
+      "width": 320,
+      "documentWidth": 320,
+      "overflow": false,
+      "tableScrollContainers": 1
+    },
+    {
+      "page": "Dashboard",
+      "width": 1200,
+      "documentWidth": 1200,
+      "overflow": false,
+      "tableScrollContainers": 0
+    },
+    {
+      "page": "Dashboard",
+      "width": 760,
+      "documentWidth": 760,
+      "overflow": false,
+      "tableScrollContainers": 0
+    },
+    {
+      "page": "Dashboard",
+      "width": 320,
+      "documentWidth": 320,
+      "overflow": false,
+      "tableScrollContainers": 1
+    },
+    {
+      "page": "Recebimentos",
+      "width": 1200,
+      "documentWidth": 1200,
+      "overflow": false,
+      "tableScrollContainers": 0
+    },
+    {
+      "page": "Recebimentos",
+      "width": 760,
+      "documentWidth": 760,
+      "overflow": false,
+      "tableScrollContainers": 0
+    },
+    {
+      "page": "Recebimentos",
+      "width": 320,
+      "documentWidth": 320,
+      "overflow": false,
+      "tableScrollContainers": 1
+    },
+    {
+      "page": "Importar XML",
+      "width": 1200,
+      "documentWidth": 1200,
+      "overflow": false,
+      "tableScrollContainers": 0
+    },
+    {
+      "page": "Importar XML",
+      "width": 760,
+      "documentWidth": 760,
+      "overflow": false,
+      "tableScrollContainers": 0
+    },
+    {
+      "page": "Importar XML",
+      "width": 320,
+      "documentWidth": 320,
+      "overflow": false,
+      "tableScrollContainers": 0
+    },
+    {
+      "page": "Lotes e Validades",
+      "width": 1200,
+      "documentWidth": 1200,
+      "overflow": false,
+      "tableScrollContainers": 0
+    },
+    {
+      "page": "Lotes e Validades",
+      "width": 760,
+      "documentWidth": 760,
+      "overflow": false,
+      "tableScrollContainers": 0
+    },
+    {
+      "page": "Lotes e Validades",
+      "width": 320,
+      "documentWidth": 320,
+      "overflow": false,
+      "tableScrollContainers": 1
+    },
+    {
+      "page": "Inventário",
+      "width": 1200,
+      "documentWidth": 1200,
+      "overflow": false,
+      "tableScrollContainers": 0
+    },
+    {
+      "page": "Inventário",
+      "width": 760,
+      "documentWidth": 760,
+      "overflow": false,
+      "tableScrollContainers": 0
+    },
+    {
+      "page": "Inventário",
+      "width": 320,
+      "documentWidth": 320,
+      "overflow": false,
+      "tableScrollContainers": 1
+    },
+    {
+      "page": "Movimentações",
+      "width": 1200,
+      "documentWidth": 1200,
+      "overflow": false,
+      "tableScrollContainers": 0
+    },
+    {
+      "page": "Movimentações",
+      "width": 760,
+      "documentWidth": 760,
+      "overflow": false,
+      "tableScrollContainers": 0
+    },
+    {
+      "page": "Movimentações",
+      "width": 320,
+      "documentWidth": 320,
+      "overflow": false,
+      "tableScrollContainers": 0
+    },
+    {
+      "page": "Fornecedores",
+      "width": 1200,
+      "documentWidth": 1200,
+      "overflow": false,
+      "tableScrollContainers": 0
+    },
+    {
+      "page": "Fornecedores",
+      "width": 760,
+      "documentWidth": 760,
+      "overflow": false,
+      "tableScrollContainers": 0
+    },
+    {
+      "page": "Fornecedores",
+      "width": 320,
+      "documentWidth": 320,
+      "overflow": false,
+      "tableScrollContainers": 0
+    },
+    {
+      "page": "Relatórios",
+      "width": 1200,
+      "documentWidth": 1200,
+      "overflow": false,
+      "tableScrollContainers": 0
+    },
+    {
+      "page": "Relatórios",
+      "width": 760,
+      "documentWidth": 760,
+      "overflow": false,
+      "tableScrollContainers": 0
+    },
+    {
+      "page": "Relatórios",
+      "width": 320,
+      "documentWidth": 320,
+      "overflow": false,
+      "tableScrollContainers": 1
+    },
+    {
+      "page": "Configurações",
+      "width": 1200,
+      "documentWidth": 1200,
+      "overflow": false,
+      "tableScrollContainers": 0
+    },
+    {
+      "page": "Configurações",
+      "width": 760,
+      "documentWidth": 760,
+      "overflow": false,
+      "tableScrollContainers": 0
+    },
+    {
+      "page": "Configurações",
+      "width": 320,
+      "documentWidth": 320,
+      "overflow": false,
+      "tableScrollContainers": 0
+    }
+  ],
+  "search": {
+    "skuCount": 1000,
+    "warmup": 5,
+    "repetitions": 30,
+    "unit": "ms",
+    "measured": "Input event to matching row plus two animation frames; development React in headless Chrome, no database or IPC",
+    "p50": 33.5,
+    "p95": 33.60000038146973,
+    "min": 33.19999980926514,
+    "max": 33.700000286102295,
+    "samples": [
+      33.5,
+      33.299999713897705,
+      33.60000038146973,
+      33.59999990463257,
+      33.30000019073486,
+      33.5,
+      33.299999713897705,
+      33.700000286102295,
+      33.19999980926514,
+      33.59999990463257,
+      33.30000019073486,
+      33.59999990463257,
+      33.30000019073486,
+      33.59999990463257,
+      33.5,
+      33.299999713897705,
+      33.5,
+      33.5,
+      33.200000286102295,
+      33.59999990463257,
+      33.30000019073486,
+      33.40000009536743,
+      33.59999990463257,
+      33.5,
+      33.40000009536743,
+      33.59999990463257,
+      33.19999980926514,
+      33.40000009536743,
+      33.5,
+      33.40000009536743
+    ]
+  },
+  "observations": {
+    "filterPreserved": true,
+    "inventoryInitiallyFocused": true,
+    "modalFocus": "Adicionar código de barras",
+    "modalKeyboard": {
+      "backwardContained": true,
+      "forwardContained": true
+    },
+    "unsavedProtected": true,
+    "barcodeAddedWithoutSave": true,
+    "quickCreatePreserved": true,
+    "pickerEnterWithoutSave": true
+  },
+  "errors": [],
+  "baselineOnly": false
+}

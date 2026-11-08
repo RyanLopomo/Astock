@@ -1,0 +1,10 @@
+CREATE TABLE lots(id INTEGER PRIMARY KEY, sku_id INTEGER NOT NULL REFERENCES skus(id), label TEXT NOT NULL CHECK(length(label)>0), manufactured_on TEXT, expires_on TEXT, vintage INTEGER CHECK(vintage BETWEEN 1800 AND 2200), supplier_id INTEGER REFERENCES suppliers(id), receipt_id INTEGER REFERENCES receipts(id), received_quantity INTEGER NOT NULL CHECK(received_quantity>=0), unit_cost_cents INTEGER NOT NULL CHECK(unit_cost_cents>=0), CHECK(manufactured_on IS NULL OR expires_on IS NULL OR manufactured_on<=expires_on)) STRICT;
+CREATE INDEX idx_lots_sku_expiry ON lots(sku_id,expires_on);
+ALTER TABLE lots ADD COLUMN receipt_item_id INTEGER REFERENCES receipt_items(id);
+ALTER TABLE stock_movements ADD COLUMN lot_id INTEGER REFERENCES lots(id);
+CREATE INDEX idx_movements_lot ON stock_movements(lot_id,sku_id);
+CREATE TABLE receipt_item_lots(id INTEGER PRIMARY KEY, item_id INTEGER NOT NULL REFERENCES receipt_items(id) ON DELETE CASCADE, label TEXT NOT NULL, manufactured_on TEXT, expires_on TEXT, vintage INTEGER, quantity INTEGER NOT NULL CHECK(quantity>0)) STRICT;
+CREATE INDEX idx_receipt_lot_item ON receipt_item_lots(item_id);
+CREATE TRIGGER receipt_lot_insert BEFORE INSERT ON receipt_item_lots WHEN (SELECT r.status FROM receipts r JOIN receipt_items i ON i.receipt_id=r.id WHERE i.id=NEW.item_id)<>'draft' BEGIN SELECT RAISE(ABORT,'AXIS:Recebimento encerrado.'); END;
+CREATE TRIGGER receipt_lot_update BEFORE UPDATE ON receipt_item_lots WHEN (SELECT r.status FROM receipts r JOIN receipt_items i ON i.receipt_id=r.id WHERE i.id=OLD.item_id)<>'draft' BEGIN SELECT RAISE(ABORT,'AXIS:Recebimento encerrado.'); END;
+CREATE TRIGGER receipt_lot_delete BEFORE DELETE ON receipt_item_lots WHEN (SELECT r.status FROM receipts r JOIN receipt_items i ON i.receipt_id=r.id WHERE i.id=OLD.item_id)<>'draft' BEGIN SELECT RAISE(ABORT,'AXIS:Recebimento encerrado.'); END;

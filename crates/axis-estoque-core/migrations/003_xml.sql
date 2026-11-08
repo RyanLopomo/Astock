@@ -1,0 +1,14 @@
+CREATE TABLE purchase_xml_imports(id INTEGER PRIMARY KEY, receipt_id INTEGER NOT NULL UNIQUE REFERENCES receipts(id), access_key TEXT NOT NULL UNIQUE CHECK(length(access_key)=44), invoice_number TEXT NOT NULL, invoice_series TEXT NOT NULL, issued_at TEXT NOT NULL, supplier_name TEXT NOT NULL, xml_text TEXT NOT NULL, file_name TEXT NOT NULL, created_at TEXT NOT NULL DEFAULT(strftime('%Y-%m-%dT%H:%M:%fZ','now'))) STRICT;
+CREATE TABLE supplier_product_mappings(supplier_id INTEGER NOT NULL REFERENCES suppliers(id), supplier_code TEXT NOT NULL, sku_id INTEGER NOT NULL REFERENCES skus(id), units_per_pack INTEGER NOT NULL CHECK(units_per_pack>0), PRIMARY KEY(supplier_id,supplier_code)) STRICT;
+CREATE INDEX idx_mappings_sku ON supplier_product_mappings(sku_id);
+ALTER TABLE receipt_items ADD COLUMN supplier_code TEXT;
+ALTER TABLE receipt_items ADD COLUMN source_description TEXT;
+ALTER TABLE receipt_items ADD COLUMN source_barcode TEXT;
+ALTER TABLE receipt_items ADD COLUMN tax_quantity TEXT;
+ALTER TABLE receipt_items ADD COLUMN tax_unit TEXT;
+ALTER TABLE receipt_items ADD COLUMN source_tax_barcode TEXT;
+ALTER TABLE receipt_items ADD COLUMN source_total_cents INTEGER;
+ALTER TABLE receipt_items ADD COLUMN source_adjustment_cents INTEGER;
+ALTER TABLE receipt_items ADD COLUMN source_quantity TEXT;
+ALTER TABLE receipt_items ADD COLUMN source_unit_price TEXT;
+ALTER TABLE receipt_items ADD COLUMN source_lots TEXT NOT NULL DEFAULT '[]';

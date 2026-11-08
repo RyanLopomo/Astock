@@ -1,0 +1,24 @@
+{
+  "date": "2026-11-07",
+  "scope": "Tauri/IPC/Rust/SQLite real em perfil de homologação separado",
+  "dataProfile": "e2e-20261107-integrada",
+  "sqliteVersion": "3.54.1",
+  "schemaVersion": 5,
+  "steps": [
+    "Produto real criado no banco isolado",
+    "XML importado em rascunho sem entrada de estoque",
+    "Chave XML duplicada recupera recebimento existente",
+    "Conversão 5 caixas × 12, lote e confirmação idempotente",
+    "Saída FEFO e repetição sem duplicar baixa",
+    "Movimentação bloqueada no Rust durante inventário",
+    "Contagem por código, QR desconhecido e repetição idempotente",
+    "Fechamento atômico, divergência -2 e histórico único",
+    "Saldo, lote, sessão e eventos preservados após reinício do processo",
+    "Associação do fornecedor e conversão recuperadas numa nova importação após reinício",
+    "Backup online verificado criado pelo comando nativo"
+  ],
+  "passed": true,
+  "finalBalance": 48,
+  "hardwareScannerTested": false,
+  "productionDataUsed": false
+}
