@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-correct-count"
+description = "Enables the correct_count command without any pre-configured scope."
+commands.allow = ["correct_count"]
+
+[[permission]]
+identifier = "deny-correct-count"
+description = "Denies the correct_count command without any pre-configured scope."
+commands.deny = ["correct_count"]

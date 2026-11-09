@@ -1,0 +1,12 @@
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Dependências, ferramentas locais privadas e metadados Git não são código distribuído"
+paths = [
+  '''(^|/)node_modules/''',
+  '''(^|/)target/''',
+  '''(^|/)\.cache/''',
+  '''(^|/)\.git/''',
+  '''(^|/)src-tauri/gen/'''
+]

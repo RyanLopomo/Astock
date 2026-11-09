@@ -9,6 +9,7 @@ mod inventory;
 mod lots;
 pub mod model;
 mod receipts;
+pub mod security;
 mod stock;
 pub mod storage;
 pub mod xml;
@@ -80,11 +81,15 @@ pub struct ProbeDatabase {
 
 impl ProbeDatabase {
     pub fn open(path: &Path) -> Result<Self, ProbeError> {
+        security::validate_path(path)
+            .map_err(|_| ProbeError::InvalidInput("Caminho local inseguro."))?;
         // Exigir a linha incorporada 3.54+; nunca habilitar WAL em versões antigas.
         if rusqlite::version_number() < 3_054_000 {
             return Err(ProbeError::UnsafeSqlite);
         }
         let mut connection = Connection::open(path)?;
+        security::configure_connection(&connection)
+            .map_err(|_| ProbeError::InvalidInput("Não foi possível proteger a conexão."))?;
         connection.busy_timeout(Duration::from_secs(5))?;
         // Recusar bancos estranhos/mais novos antes de qualquer PRAGMA persistente.
         check_database_identity(&connection)?;

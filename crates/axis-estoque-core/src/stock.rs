@@ -148,7 +148,7 @@ impl Store {
         Ok(())
     }
     pub fn issue_stock(&mut self, input: IssueInput) -> Result<()> {
-        if !input.confirmed || input.allocations.is_empty() {
+        if !input.confirmed || input.allocations.is_empty() || input.allocations.len() > 5000 {
             return Err(CoreError::invalid("Confira e confirme a saída."));
         }
         let reason = text(&input.reason, "Motivo da saída", 500, true)?;

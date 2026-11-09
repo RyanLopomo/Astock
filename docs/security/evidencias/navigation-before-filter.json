@@ -1,0 +1,11 @@
+{
+  "date": "2026-11-08",
+  "passed": false,
+  "syntheticOnly": true,
+  "attempts": 2,
+  "reproduction": "location.assign para servidor HTTP efêmero em 127.0.0.1; navegação cancelada, mas pedido HTTP observado",
+  "httpRequestsObserved": 1,
+  "otherNativeSecurityChecksPassed": 7,
+  "remediation": "Filtro WebResourceRequested no WebView2, além do cancelamento de navegação",
+  "finalEvidence": "native-security.json"
+}

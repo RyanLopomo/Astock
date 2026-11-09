@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-delete-receipt-item"
+description = "Enables the delete_receipt_item command without any pre-configured scope."
+commands.allow = ["delete_receipt_item"]
+
+[[permission]]
+identifier = "deny-delete-receipt-item"
+description = "Denies the delete_receipt_item command without any pre-configured scope."
+commands.deny = ["delete_receipt_item"]

@@ -1,7 +1,36 @@
 {
   "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "main",
-  "description": "Janela local da prova. Sem plugins de SQL, shell, rede ou sistema de arquivos.",
-  "windows": ["main"],
-  "permissions": []
+  "description": "Somente comandos locais explícitos do Astock na janela main; sem plugins de acesso genérico.",
+  "windows": [
+    "main"
+  ],
+  "permissions": [
+    "allow-get-workspace",
+    "allow-get-receipt",
+    "allow-get-inventory",
+    "allow-get-inventory-events",
+    "allow-get-movements",
+    "allow-create-backup",
+    "allow-save-product",
+    "allow-save-supplier",
+    "allow-create-receipt",
+    "allow-save-receipt-item",
+    "allow-delete-receipt-item",
+    "allow-confirm-receipt",
+    "allow-cancel-receipt",
+    "allow-import-xml",
+    "allow-plan-issue",
+    "allow-issue-stock",
+    "allow-adjust-stock",
+    "allow-regularize-lot",
+    "allow-create-inventory",
+    "allow-inventory-scan",
+    "allow-correct-count",
+    "allow-finish-inventory",
+    "allow-cancel-inventory",
+    "allow-save-settings",
+    "allow-get-probe-state",
+    "allow-record-probe"
+  ]
 }

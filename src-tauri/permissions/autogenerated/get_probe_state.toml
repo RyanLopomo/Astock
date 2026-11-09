@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-get-probe-state"
+description = "Enables the get_probe_state command without any pre-configured scope."
+commands.allow = ["get_probe_state"]
+
+[[permission]]
+identifier = "deny-get-probe-state"
+description = "Denies the get_probe_state command without any pre-configured scope."
+commands.deny = ["get_probe_state"]

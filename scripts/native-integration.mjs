@@ -5,8 +5,10 @@ import assert from 'node:assert/strict';
 import { fileURLToPath } from 'node:url';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const phase=process.argv.includes('--capture')?'capture':process.argv.includes('--resume')?'resume':'exercise';
-const targets=await fetch('http://127.0.0.1:9223/json/list').then(r=>r.json());
-const target=targets.find(t=>t.type==='page'&&t.url.includes('127.0.0.1:1420'));
+const option=(name,fallback)=>{const i=process.argv.indexOf(name);return i<0?fallback:process.argv[i+1];};
+const port=Number(option('--port','9223'));if(!Number.isInteger(port)||port<1024||port>65535)throw new Error('Porta inválida');
+const targets=await fetch('http://127.0.0.1:'+port+'/json/list').then(r=>r.json());
+const target=targets.find(t=>t.type==='page'&&(t.url.includes('127.0.0.1:1420')||t.url.startsWith('http://tauri.localhost/')));
 if(!target)throw new Error('Janela Tauri de homologação não encontrada.');
 const endpoint=new URL(target.webSocketDebuggerUrl);
 if(!['localhost','127.0.0.1','[::1]'].includes(endpoint.hostname))throw new Error('CDP deve ser local.');
@@ -19,8 +21,8 @@ async function call(command,args={}){const expression=`(async()=>{try{return {ok
 let workspace;
 for(let attempt=0;attempt<100;attempt++){try{workspace=await call('get_workspace');break;}catch(e){if(e.code!=='STARTING')throw e;await new Promise(resolve=>setTimeout(resolve,200));}}
 assert.ok(workspace?.dataProfile,'RECUSADO: não executar testes mutáveis no banco principal.');
-const statePath=path.join(root,'.cache/native-integration-state.json');
-const evidencePath=path.join(root,'docs/evidencias/native-v1-integrada.json');
+const statePath=path.resolve(root,option('--state','.cache/native-integration-state.json'));
+const evidencePath=path.resolve(root,option('--evidence','docs/evidencias/native-v1-integrada.json'));
 const input=(command,value)=>call(command,{input:value});
 const steps=[];const passed=(name)=>{steps.push(name);console.log(`PASS ${name}`);};
 try{
@@ -62,6 +64,6 @@ try{
   xml=xml.replace(/Id="NFe\d{44}"/,`Id="NFe${key}"`).replace('<nNF>123</nNF>','<nNF>124</nNF>').replace('<qCom>5.0000</qCom>','<qCom>2.0000</qCom>').replace('<vProd>600.00</vProd>','<vProd>240.00</vProd>').replace('<qLote>5.000</qLote>','<qLote>2.000</qLote>').replace('<qTrib>60.0000</qTrib>','<qTrib>24.0000</qTrib>');
   const next=await input('import_xml',{content:xml,fileName:'segunda-compra-sintetica.xml'});assert.equal(next.detail.items[0].skuId,state.skuId);assert.equal(next.detail.items[0].unitsPerPack,12);assert.equal(next.detail.items[0].units,24);assert.equal((await call('get_workspace')).skus[0].balance,48);passed('Associação do fornecedor e conversão recuperadas numa nova importação após reinício');
   const backup=await call('create_backup');assert.ok((await stat(backup)).size>0);passed('Backup online verificado criado pelo comando nativo');
-  await mkdir(path.dirname(evidencePath),{recursive:true});await writeFile(evidencePath,JSON.stringify({date:'2026-11-07',scope:'Tauri/IPC/Rust/SQLite real em perfil de homologação separado',dataProfile:state.profile,sqliteVersion:workspace.sqliteVersion,schemaVersion:workspace.schemaVersion,steps:[...state.steps,...steps],passed:true,finalBalance:48,hardwareScannerTested:false,productionDataUsed:false},null,2));
+  await mkdir(path.dirname(evidencePath),{recursive:true});await writeFile(evidencePath,JSON.stringify({date:option('--date','2026-11-07'),scope:'Tauri/IPC/Rust/SQLite real em perfil de homologação separado',dataProfile:state.profile,sqliteVersion:workspace.sqliteVersion,schemaVersion:workspace.schemaVersion,steps:[...state.steps,...steps],passed:true,finalBalance:48,hardwareScannerTested:false,productionDataUsed:false},null,2));
  }
 }finally{socket.close();for(const handler of waiting.values()){clearTimeout(handler.timer);handler.reject(new Error('Conexão encerrada'));}}

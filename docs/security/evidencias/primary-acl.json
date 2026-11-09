@@ -1,0 +1,20 @@
+[
+    {
+        "target":  "phase0",
+        "protected":  true,
+        "entries":  3,
+        "onlyCurrentUserSystemAdministrators":  true
+    },
+    {
+        "target":  "prova.db",
+        "protected":  true,
+        "entries":  3,
+        "onlyCurrentUserSystemAdministrators":  true
+    },
+    {
+        "target":  "backups",
+        "protected":  true,
+        "entries":  3,
+        "onlyCurrentUserSystemAdministrators":  true
+    }
+]

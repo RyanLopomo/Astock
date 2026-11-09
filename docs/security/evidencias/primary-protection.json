@@ -1,0 +1,10 @@
+{
+  "aclAppliedToDedicatedDirectoryDatabaseSidecarsAndExistingBackups": true,
+  "consistentPrivateBackup": true,
+  "date": "2026-11-08",
+  "integrity": "ok",
+  "logicalDigestAfter": "416cc7277e75fc6b14eca6db51082a083ea74c18ba5baa352973d7510633fb1f",
+  "logicalDigestBefore": "416cc7277e75fc6b14eca6db51082a083ea74c18ba5baa352973d7510633fb1f",
+  "sourceDataChanges": 0,
+  "sourceReadOnly": true
+}

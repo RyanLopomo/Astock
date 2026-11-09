@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-get-receipt"
+description = "Enables the get_receipt command without any pre-configured scope."
+commands.allow = ["get_receipt"]
+
+[[permission]]
+identifier = "deny-get-receipt"
+description = "Denies the get_receipt command without any pre-configured scope."
+commands.deny = ["get_receipt"]

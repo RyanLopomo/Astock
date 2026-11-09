@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-import-xml"
+description = "Enables the import_xml command without any pre-configured scope."
+commands.allow = ["import_xml"]
+
+[[permission]]
+identifier = "deny-import-xml"
+description = "Denies the import_xml command without any pre-configured scope."
+commands.deny = ["import_xml"]

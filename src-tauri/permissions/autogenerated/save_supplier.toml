@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-save-supplier"
+description = "Enables the save_supplier command without any pre-configured scope."
+commands.allow = ["save_supplier"]
+
+[[permission]]
+identifier = "deny-save-supplier"
+description = "Denies the save_supplier command without any pre-configured scope."
+commands.deny = ["save_supplier"]

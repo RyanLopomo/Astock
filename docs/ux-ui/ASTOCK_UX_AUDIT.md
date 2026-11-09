@@ -1,5 +1,7 @@
 # Auditoria UX/UI do Astock
 
+Adendo de segurança, 08/11/2026: diagnóstico anterior registrado em docs/security/INITIAL_STATE.md. A única mudança no fluxo visual foi rejeitar XML malcodificado em UTF-8 antes do IPC, com erro recuperável pelo TaskStatus existente e sem anunciar importação bem-sucedida. Identidade, componentes, foco e conferência foram preservados. Testes XSS/UTF-8 e regressão de interface constam de docs/security/SECURITY_TESTS.md; não constitui nova avaliação de conformidade WCAG ou hardware.
+
 Data: 08/11/2026. Base inspecionada: Astock 1.3.0 em `C:\Users\R\Documents\PDV`.
 
 ## Diagnóstico anterior às alterações

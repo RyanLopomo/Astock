@@ -1,0 +1,33 @@
+{
+  "date": "2026-11-08",
+  "passed": true,
+  "profile": "security-abuse-20261108-d",
+  "productionDatabaseUsed": false,
+  "checks": [
+    "Comandos desconhecidos, paths, IDs inválidos e APIs genéricas rejeitados no IPC real",
+    "Payload IPC acima do limite rejeitado antes do trabalho de banco",
+    "Importações concorrentes preservam chave única, rascunho e saldo zero",
+    "Rajada de oito backups gera somente uma cópia; demais limitados",
+    "Rajada de consultas retorna resultados ou BUSY, com fila limitada",
+    "Produto com tags/eventos persistido e renderizado como texto no WebView real",
+    "CSP bloqueia script inline/remoto, evento HTML, fetch e frame; zero requisições ao servidor local",
+    "Navegação fora da origem local bloqueada antes de qualquer requisição"
+  ],
+  "xmlRequests": 16,
+  "xmlAccepted": 3,
+  "xmlLimited": 13,
+  "backupRequests": 8,
+  "backupsCreated": 1,
+  "readRequests": 100,
+  "readsLimited": 22,
+  "cspViolations": [
+    "script-src-elem",
+    "script-src-elem",
+    "script-src-attr",
+    "connect-src",
+    "img-src",
+    "frame-src"
+  ],
+  "blockedLocalServerHits": 0,
+  "finalBalance": 0
+}

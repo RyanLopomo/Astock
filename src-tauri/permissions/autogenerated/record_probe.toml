@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-record-probe"
+description = "Enables the record_probe command without any pre-configured scope."
+commands.allow = ["record_probe"]
+
+[[permission]]
+identifier = "deny-record-probe"
+description = "Denies the record_probe command without any pre-configured scope."
+commands.deny = ["record_probe"]

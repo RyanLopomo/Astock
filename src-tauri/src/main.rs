@@ -6,23 +6,41 @@ use std::{
     sync::{Arc, Mutex},
 };
 use tauri::{Manager, State};
+mod commands {
+    include!("../commands.rs");
+}
+mod ipc_security;
+mod network_guard;
+use ipc_security::{Work, WorkGate};
 
 enum DatabaseState {
     Starting,
     Ready(Box<Store>),
     Failed(CoreError),
 }
+struct DatabaseService {
+    value: Mutex<DatabaseState>,
+    gate: Arc<WorkGate>,
+}
 struct AppState {
-    database: Arc<Mutex<DatabaseState>>,
+    database: Arc<DatabaseService>,
     path: String,
     profile: Option<String>,
 }
 async fn database<T: Send + 'static>(
-    state: Arc<Mutex<DatabaseState>>,
+    state: Arc<DatabaseService>,
     action: impl FnOnce(&mut Store) -> Result<T> + Send + 'static,
 ) -> Result<T> {
+    database_work(state, Work::Normal, action).await
+}
+async fn database_work<T: Send + 'static>(
+    state: Arc<DatabaseService>,
+    work: Work,
+    action: impl FnOnce(&mut Store) -> Result<T> + Send + 'static,
+) -> Result<T> {
+    let mut permit = state.gate.enter(work)?;
     tauri::async_runtime::spawn_blocking(move || {
-        let mut guard = state.lock().map_err(|_| {
+        let mut guard = state.value.lock().map_err(|_| {
             CoreError::new("UNAVAILABLE", "Banco indisponível. Reinicie o aplicativo.")
         })?;
         match &mut *guard {
@@ -30,7 +48,13 @@ async fn database<T: Send + 'static>(
                 "STARTING",
                 "Preparando banco e verificando migrações…",
             )),
-            DatabaseState::Ready(store) => action(store),
+            DatabaseState::Ready(store) => {
+                let result = action(store);
+                if result.is_ok() {
+                    permit.succeeded();
+                }
+                result
+            }
             DatabaseState::Failed(error) => Err(CoreError::new(error.code, error.message.clone())),
         }
     })
@@ -52,7 +76,13 @@ input_command!(save_receipt_item, ReceiptItemInput, ReceiptDetail);
 input_command!(delete_receipt_item, DeleteReceiptItem, ReceiptDetail);
 input_command!(confirm_receipt, ReceiptAction, Confirmation);
 input_command!(cancel_receipt, ReceiptAction, ());
-input_command!(import_xml, XmlImportInput, XmlImportResult);
+#[tauri::command]
+async fn import_xml(input: XmlImportInput, state: State<'_, AppState>) -> Result<XmlImportResult> {
+    database_work(state.database.clone(), Work::Xml, move |db| {
+        db.import_xml(input)
+    })
+    .await
+}
 input_command!(plan_issue, IssuePlanInput, IssuePlan);
 input_command!(issue_stock, IssueInput, ());
 input_command!(adjust_stock, AdjustmentInput, ());
@@ -110,7 +140,10 @@ async fn get_movements(input: MovementQuery, state: State<'_, AppState>) -> Resu
 }
 #[tauri::command]
 async fn create_backup(state: State<'_, AppState>) -> Result<String> {
-    database(state.database.clone(), |db| db.create_backup()).await
+    database_work(state.database.clone(), Work::Backup, |db| {
+        db.create_backup()
+    })
+    .await
 }
 #[derive(Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -144,7 +177,10 @@ fn database_location() -> Result<(PathBuf, Option<String>)> {
         {
             return Err(CoreError::new("PATH", "Perfil de homologação inválido."));
         }
-        let root = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../.cache/test-data");
+        let root = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
+            .parent()
+            .ok_or_else(|| CoreError::new("PATH", "Raiz de homologação inválida."))?
+            .join(".cache/test-data");
         return Ok((root.join(&profile).join("estoque.db"), Some(profile)));
     }
     let local = std::env::var_os("LOCALAPPDATA").ok_or_else(|| {
@@ -163,10 +199,19 @@ fn database_location() -> Result<(PathBuf, Option<String>)> {
     ))
 }
 fn main() {
+    #[cfg(not(debug_assertions))]
+    {
+        std::env::remove_var("WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS");
+        std::env::remove_var("WEBVIEW2_PIPE_FOR_SCRIPT_DEBUGGER");
+    }
     let result = tauri::Builder::default()
         .setup(|app| {
             let (path, profile) = database_location()?;
-            let shared = Arc::new(Mutex::new(DatabaseState::Starting));
+            axis_estoque_core::security::protect_database_files(&path)?;
+            let shared = Arc::new(DatabaseService {
+                value: Mutex::new(DatabaseState::Starting),
+                gate: Arc::new(WorkGate::default()),
+            });
             app.manage(AppState {
                 database: shared.clone(),
                 path: path.to_string_lossy().into_owned(),
@@ -179,43 +224,80 @@ fn main() {
                         "Falha ao preparar o banco. Preserve os arquivos e verifique o backup.",
                     ))
                 });
-                if let Ok(mut state) = shared.lock() {
+                if let Ok(mut state) = shared.value.lock() {
                     *state = match result {
                         Ok(store) => DatabaseState::Ready(Box::new(store)),
                         Err(error) => DatabaseState::Failed(error),
                     };
                 }
             });
+            let window_builder =
+                tauri::WebviewWindowBuilder::from_config(app, &app.config().app.windows[0])?;
+            let browser = PathBuf::from(&app.state::<AppState>().path)
+                .parent()
+                .ok_or_else(|| CoreError::new("PATH", "Perfil inválido."))?
+                .join("webview");
+            axis_estoque_core::security::private_directory(&browser)?;
+            let window_builder = window_builder.data_directory(browser);
+            let window = window_builder
+                .on_navigation(ipc_security::trusted_location)
+                .on_new_window(|_, _| tauri::webview::NewWindowResponse::Deny)
+                .build()?;
+            network_guard::install(&window)?;
             Ok(())
         })
-        .invoke_handler(tauri::generate_handler![
-            get_workspace,
-            get_receipt,
-            get_inventory,
-            get_inventory_events,
-            get_movements,
-            create_backup,
-            save_product,
-            save_supplier,
-            create_receipt,
-            save_receipt_item,
-            delete_receipt_item,
-            confirm_receipt,
-            cancel_receipt,
-            import_xml,
-            plan_issue,
-            issue_stock,
-            adjust_stock,
-            regularize_lot,
-            create_inventory,
-            inventory_scan,
-            correct_count,
-            finish_inventory,
-            cancel_inventory,
-            save_settings,
-            get_probe_state,
-            record_probe
-        ])
+        .invoke_handler({
+            let handler: fn(tauri::ipc::Invoke) -> bool = tauri::generate_handler![
+                get_workspace,
+                get_receipt,
+                get_inventory,
+                get_inventory_events,
+                get_movements,
+                create_backup,
+                save_product,
+                save_supplier,
+                create_receipt,
+                save_receipt_item,
+                delete_receipt_item,
+                confirm_receipt,
+                cancel_receipt,
+                import_xml,
+                plan_issue,
+                issue_stock,
+                adjust_stock,
+                regularize_lot,
+                create_inventory,
+                inventory_scan,
+                correct_count,
+                finish_inventory,
+                cancel_inventory,
+                save_settings,
+                get_probe_state,
+                record_probe
+            ];
+            move |invoke: tauri::ipc::Invoke| {
+                let result = invoke
+                    .message
+                    .webview_ref()
+                    .url()
+                    .map_err(|_| CoreError::new("IPC_DENIED", "Origem indisponível."))
+                    .and_then(|url| match invoke.message.payload() {
+                        tauri::ipc::InvokeBody::Json(body) => ipc_security::validate(
+                            invoke.message.webview_ref().label(),
+                            &url,
+                            invoke.message.command(),
+                            body,
+                        ),
+                        _ => Err(CoreError::invalid("O IPC aceita somente argumentos JSON.")),
+                    });
+                if let Err(error) = result {
+                    invoke.resolver.reject(error);
+                    true
+                } else {
+                    handler(invoke)
+                }
+            }
+        })
         .run(tauri::generate_context!());
     if result.is_err() {
         eprintln!("AXIS: falha ao iniciar o aplicativo local.");

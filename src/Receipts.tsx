@@ -1,3 +1,4 @@
+import {readXmlFile} from './xml-file';
 import { matches,useTask } from './task';
 import { useEffect,useState,type ChangeEvent,type FormEvent } from 'react';
 import type { PageProps } from './ui';
@@ -14,7 +15,7 @@ export default function Receipts(props:PageProps){
 }
 export function ImportXml(props:PageProps){
  const[result,setResult]=useState<{detail:ReceiptDetail;reused:boolean;warnings:string[]}|null>(null);const task=useTask();const[fileLabel,setFileLabel]=useState('');
- async function read(event:ChangeEvent<HTMLInputElement>){const file=event.target.files?.[0];event.target.value='';if(!file)return;await task.run(async()=>{if(file.size>8*1024*1024)throw new Error('O XML excede 8 MiB.');setFileLabel(file.name);const parsed=await props.client.importXml(await file.text(),file.name);setResult(parsed);await props.refresh();},'XML lido e rascunho recuperado no banco local.');}
+ async function read(event:ChangeEvent<HTMLInputElement>){const file=event.target.files?.[0];event.target.value='';if(!file)return;await task.run(async()=>{if(file.size>8*1024*1024)throw new Error('O XML excede 8 MiB.');setFileLabel(file.name);const parsed=await props.client.importXml(await readXmlFile(file),file.name);setResult(parsed);await props.refresh();},'XML lido e rascunho recuperado no banco local.');}
  return <><Heading title="Importar XML" description="NF-e de compra 4.00: leitura local, associação de produtos e conferência."/><section className="panel import-panel"><div><h2>Selecione uma NF-e recebida</h2><p className="muted">Formatos NFe e nfeProc/procNFe · UTF-8 · até 8 MiB.</p></div><label className={`file-button ${task.busy?'disabled':''}`}>{task.busy?'Lendo XML…':'Importar XML'}<input aria-label="Importar XML" type="file" accept=".xml,text/xml,application/xml" onChange={e=>void read(e)} disabled={task.busy}/></label></section><TaskStatus task={task}/><p className="muted">O aplicativo não emite documentos, não consulta a SEFAZ e não comprova autenticidade ou autorização fiscal.</p>{result?<><div className="panel"><strong>{fileLabel}</strong>{result.reused&&<p className="notice">Chave já importada: o recebimento existente foi aberto. Nenhuma entrada duplicada foi criada.</p>}{result.warnings.map((w,i)=><p key={i} className="import-warning">{w}</p>)}</div><ReceiptView {...props} key={result.detail.receipt.id} id={result.detail.receipt.id} initial={result.detail}/></>:<Empty>Após selecionar o arquivo, os itens e os dados do fornecedor aparecerão aqui para conferência.</Empty>}</>;
 }
 export function ReceiptView(props:PageProps&{id:number;initial?:ReceiptDetail}){

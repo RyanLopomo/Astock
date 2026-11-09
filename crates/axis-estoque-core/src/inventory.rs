@@ -121,6 +121,11 @@ impl Store {
         events(&self.db.connection, id, page)
     }
     pub fn create_inventory(&mut self, input: InventoryCreate) -> Result<InventoryDetail> {
+        if input.sku_ids.as_ref().is_some_and(|ids| ids.len() > 10_000) {
+            return Err(CoreError::invalid(
+                "Limite de 10000 SKUs por seleção parcial.",
+            ));
+        }
         let name = text(&input.name, "Nome do inventário", 160, true)?;
         let tx = self
             .db

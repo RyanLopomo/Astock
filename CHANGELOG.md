@@ -1,5 +1,13 @@
 # Changelog
 
+## Hardening de segurança — 08/11/2026
+
+- ACL protegida para dados/sidecars/backups; rejeição de links, junções, hard links e caminhos inseguros; backup não sobrescreve destino com dados.
+- Comandos Tauri com AppManifest/capability explícitos, origem/argumentos limitados, fila de 32 e proteção de importação/backup contra abuso.
+- Cancelamento de navegação complementado por filtro de requisições WebView2; CSP reforçada e flags de inspeção removidas no release.
+- SQLite defensivo, trusted_schema OFF, limites e temporários em memória; XML com UTF-8 estrito antes do IPC.
+- Scanner/hook/CI e verificador de artefatos; testes de injeção, recuperação, XSS, rede e concorrência. Relatórios em docs/security; criptografia/assinatura permanecem pendentes, sem migração destrutiva ou atualização cega.
+
 ## Nome Astock — 07/11/2026
 
 - Nome exibido alterado para Astock na janela, interface e metadados Windows; novo executável `astock.exe`.

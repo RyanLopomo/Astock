@@ -5,9 +5,11 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   clearScreen: false,
+  envPrefix: 'ASTOCK_PUBLIC_',
   server: { host: '127.0.0.1', port: 1420, strictPort: true },
   build: { target: 'es2022' },
   test: {
+    include: ['src/**/*.{test,spec}.{ts,tsx}'],
     environment: 'jsdom',
     globals: true,
     setupFiles: ['./src/test/setup.ts'],

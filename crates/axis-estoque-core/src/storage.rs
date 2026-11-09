@@ -26,6 +26,10 @@ pub struct Store {
 }
 impl Store {
     pub fn open(path: &Path) -> Result<Self> {
+        crate::security::validate_path(path)?;
+        for suffix in ["-wal", "-shm", "-journal"] {
+            crate::security::validate_path(Path::new(&format!("{}{suffix}", path.display())))?;
+        }
         if rusqlite::version_number() < 3_054_000 {
             return Err(CoreError::new(
                 "SQLITE_VERSION",
@@ -36,7 +40,11 @@ impl Store {
             .parent()
             .ok_or_else(|| CoreError::invalid("Caminho do banco inválido."))?;
         fs::create_dir_all(parent)?;
-        let mut connection = Connection::open(path)?;
+        let mut connection = Connection::open_with_flags(
+            path,
+            OpenFlags::default() | OpenFlags::SQLITE_OPEN_NOFOLLOW,
+        )?;
+        crate::security::configure_connection(&connection)?;
         connection.busy_timeout(Duration::from_secs(5))?;
         let version = identity(&connection)?;
         connection.pragma_update(None, "foreign_keys", true)?;
@@ -45,7 +53,7 @@ impl Store {
         let backup_dir = parent.join("backups");
         if version < SCHEMA_VERSION {
             if version > 0 {
-                fs::create_dir_all(&backup_dir)?;
+                crate::security::private_directory(&backup_dir)?;
                 let backup = unique_file(&backup_dir, &format!("antes-schema-{version}"))?;
                 backup_to(&connection, &backup)?;
                 // Ensaio nas mesmas migrações, antes de tocar no esquema principal.
@@ -53,6 +61,7 @@ impl Store {
                 backup_to(&connection, &rehearsal)?;
                 let rehearsal_result = (|| {
                     let mut copy = Connection::open(&rehearsal)?;
+                    crate::security::configure_connection(&copy)?;
                     copy.pragma_update(None, "foreign_keys", true)?;
                     apply_migrations(&mut copy)?;
                     integrity(&copy)
@@ -96,7 +105,7 @@ impl Store {
             .map_err(|e| CoreError::invalid(e.to_string()))
     }
     pub fn create_backup(&self) -> Result<String> {
-        fs::create_dir_all(&self.backup_dir)?;
+        crate::security::private_directory(&self.backup_dir)?;
         let path = unique_file(&self.backup_dir, "manual")?;
         backup_to(&self.db.connection, &path)?;
         Ok(path.to_string_lossy().into_owned())
@@ -214,7 +223,17 @@ fn unique_file(dir: &Path, label: &str) -> Result<PathBuf> {
     Ok(path)
 }
 pub fn backup_to(source: &Connection, path: &Path) -> Result<()> {
-    let mut destination = Connection::open(path)?;
+    crate::security::validate_path(path)?;
+    if path.exists() && fs::metadata(path)?.len() != 0 {
+        return Err(CoreError::new(
+            "BACKUP_EXISTS",
+            "O destino do backup já contém dados e não será sobrescrito.",
+        ));
+    }
+    let mut destination =
+        Connection::open_with_flags(path, OpenFlags::default() | OpenFlags::SQLITE_OPEN_NOFOLLOW)?;
+    crate::security::private_file(path)?;
+    crate::security::configure_connection(&destination)?;
     {
         let backup = Backup::new(source, &mut destination)?;
         let start = Instant::now();

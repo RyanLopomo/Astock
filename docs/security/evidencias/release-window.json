@@ -1,0 +1,10 @@
+{
+    "date":  "2026-11-08",
+    "windowTitle":  "Astock",
+    "dashboardVisible":  true,
+    "dashboardVerification":  "Win32 PrintWindow + inspeção visual; seleção exata UIAutomation indisponível",
+    "releaseInspectionPortOpen":  false,
+    "webviewProfilePrivate":  true,
+    "testProfileIgnoredByRelease":  true,
+    "mutatingBusinessCommandsUsed":  false
+}

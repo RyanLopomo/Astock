@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-save-receipt-item"
+description = "Enables the save_receipt_item command without any pre-configured scope."
+commands.allow = ["save_receipt_item"]
+
+[[permission]]
+identifier = "deny-save-receipt-item"
+description = "Denies the save_receipt_item command without any pre-configured scope."
+commands.deny = ["save_receipt_item"]

@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-cancel-receipt"
+description = "Enables the cancel_receipt command without any pre-configured scope."
+commands.allow = ["cancel_receipt"]
+
+[[permission]]
+identifier = "deny-cancel-receipt"
+description = "Denies the cancel_receipt command without any pre-configured scope."
+commands.deny = ["cancel_receipt"]

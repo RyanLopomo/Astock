@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-regularize-lot"
+description = "Enables the regularize_lot command without any pre-configured scope."
+commands.allow = ["regularize_lot"]
+
+[[permission]]
+identifier = "deny-regularize-lot"
+description = "Denies the regularize_lot command without any pre-configured scope."
+commands.deny = ["regularize_lot"]

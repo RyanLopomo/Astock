@@ -1,5 +1,7 @@
 # Astock — V1.3.0 integrada
 
+Auditoria de segurança de 08/11/2026: [relatório e riscos residuais](docs/security/SECURITY_AUDIT.md). Execute `npm.cmd run test:security` e, após o build, `npm.cmd run security:check`. Em novos clones, ative `git config core.hooksPath .githooks`. O checkpoint atual da auditoria é `security-20261108`; checkpoints anteriores permanecem históricos.
+
 Aplicativo Windows com Tauri 2, React/TypeScript e núcleo Rust/SQLite local. Inclui cadastros, recebimentos manuais, importação de XML de compra (V1.1), lotes/validade/FEFO (V1.2) e inventário físico por leitura de códigos (V1.3). Não requer servidor nem assinatura. A versão compilada incorpora a interface e o SQLite; o Windows precisa do WebView2.
 
 O banco e o histórico da Fase 0 continuam no mesmo local. Os documentos antigos são registros históricos; o estado atual está no [relatório integrado](docs/relatorio-v1-integrada.md). Nenhum dado sintético é criado automaticamente no banco principal.

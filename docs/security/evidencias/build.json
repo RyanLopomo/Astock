@@ -1,0 +1,28 @@
+{
+  "date": "2026-11-08",
+  "product": "Astock",
+  "version": "1.3.0",
+  "executable": "target/release/astock.exe",
+  "bytes": 11684864,
+  "baselineExecutableBytes": 11324928,
+  "sha256": "ff3fce91c6cef4e3a9eb06b1799114de2cd533c56d14cd0e5a28c31f2ebc29a1",
+  "build": "npm.cmd run desktop:build",
+  "buildSucceeded": true,
+  "sourceHead": "23f89161cbdbf3754fafb6b44825d2e2b6938fb8",
+  "uncommittedRemediation": true,
+  "configuration": {
+    "localCommands": 26,
+    "cspRestricted": true,
+    "remoteCapabilities": false,
+    "updaterEnabled": false
+  },
+  "distribution": {
+    "files": 3,
+    "sourceMaps": false,
+    "sensitiveFiles": false
+  },
+  "authenticode": {
+    "status": "NotSigned",
+    "productName": "Astock"
+  }
+}
